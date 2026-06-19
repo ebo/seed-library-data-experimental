@@ -1,0 +1,42 @@
+
+=001
+=024
+=034
+=245
+=260
+=300
+=500
+=518
+  removed =583
+=650
+=710
+=856
+=LDR
+
+======
+
+=005 (date of last transaction == packet dispersal)
+=007 (physical description = seed packet / bulk seeds / roots ...)
+=037 (Source of acquisition) => source stock number...
+
+
+=LDR  00000nam a2200000 i 4500
+=001  SEED-2025-004
+=024  7\\$a ASSY$2USDA-PLANTS
+=034  0\\$d -76.4922$f 38.9784.
+=245  10$a Common Milkweed /$b Asclepias syriaca.
+=260  \\$c 2025.
+=300  \\$a Approx. 300 seeds.
+=500  \\$a Family: Apocynaceae.
+=500  \\$a Growing temperature range: 21–27°C (70–80°F).
+=500  \\$a Germination requirements: Cold-moist stratification for 30–60 days; light recommended.
+=500  \\$a Notes: Essential host plant for monarch butterflies.
+=518  \\$a Collected YYYY-MM-DD during [collection event description].
+=583  \\$a Packaged YYYY-MM-DD.
+=650  \0$a Monarch butterfly -- Host plants.
+=650  \0$a Native milkweeds.
+=710  2\\$a USDA Pollinator Program, collector.
+=856  40$u https://plants.usda.gov/home/plantProfile?symbol=ASSY$q QR code link
+
+583 => 518
+
