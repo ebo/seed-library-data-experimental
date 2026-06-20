@@ -1,0 +1,86 @@
+MARC
+Tag
+Field Name & Description
+Common Subfields
+
+=================
+
+100
+
+Main Entry - Personal Name: The author's primary name and dates (e.g.,
+birth/death years).
+
+$a (Name), <==> full taxinomic name.  Different entry for just
+        species.  What should we do with different viarieties and just
+        the genus?
+
+$d (Dates of associated person), <==> natural
+        planting/germinating/flowering/harvesting dates
+
+$q (Fuller form of name) <==> common names?
+
+=================
+
+374
+
+Occupation: The author's profession or field of work.
+
+$a (Occupation) <==> huh?!?!?!
+
+=================
+
+375
+
+Gender: The gender of the author.
+
+$a (Gender) <==> if a species is an author, what does a gender mean?
+
+=================
+
+545
+
+Biographical or Historical Data (Bibliographic): A biographical sketch
+or note about the author used within a specific item record.
+
+$a (Biographical data),
+
+$b (Expansion),
+
+$u (Uniform Resource Identifier)
+
+=================
+
+678
+
+Biographical or Historical Data (Authority): Used in authority records
+to provide a public display of an author's life.
+
+$a (Biographical or historical data),
+
+$b (Expansion)
+
+=================
+
+008
+
+Books Fixed-Length Data Element - Biography: A coded character
+position that identifies if an item is a biography (Autobiography,
+Individual, or Collective). <==> maybe designates a genera, species,
+variety?
+
+Position 34: (e.g., a for autobiography, b for individual biography, c
+for collective biography)
+
+=================
+
+Also look at an article with ChatGPT generating fields:
+  https://www.tandfonline.com/doi/abs/10.1080/01639374.2024.2394513
+
+=================
+
+Note: 545 $u (Uniform Resource Identifier) could maybe me a 
+
+   urn:isbn:0123456789 for an ISBN
+   urn:usda:saca13 for Bloodroot (Sanguinaria canadensis L.)
+
+or should the naming athority (ISBN/USDA) be defined in another place.
