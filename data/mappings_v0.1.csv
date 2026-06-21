@@ -1,0 +1,79 @@
+"class","tag","subtag","var","required"
+# some of these entries are repeatable, some required, some desired.
+"Species",100,"$a","name",True
+"Species",100,"$c","common",False
+"Species",100,"$g","germination",False
+"Species",100,"$j","growth_form",False
+# part/number?
+"Species",100,"$q","full_name",False
+# veg class is a 
+"Species",100,"$u","veg_class",False
+
+"Species",100,"$0","urn",False
+"Species",100,"$1","species_id",False
+# define difference between link, field link and others.
+"Species",100,"$6","link",False
+"Species",100,"$8","field_link",False
+
+# 210: abbreviated titles.  This might work for encodings (eg. USDA:SACA13)
+
+# 504: Bibliography, etc. Note
+
+# 506: *** Restriction on Access Note
+
+# 508: creation/production credit notes: crediting people who did operations?
+
+# 514: Data Quality Note: this might work for QA/QC and
+#        germination rate tracking for seed-banks.
+
+# 516: computer file/data record - for experiments, notes, etc.
+
+# 518: date/time and place of an event note: not sure how this
+#        compares with other dates/times above
+
+# 520: Summary...
+
+# 522: *** Geographic Coverage Note: used to describe native range or other info
+
+# 542: copyright status if there is one <==> patented or other limitation
+
+# 545: Biographical or Historical Data: history notes?  How about enthobotony?
+
+###############################################################################
+
+# collections levels (analogous to ????)
+"Collection",110,"$a","name",False
+"Collection",110,"$0","id",True
+# define difference between link, field link and others.
+"Collection",110,"$6","link",False
+"Collection",110,"$8","field_link",False
+
+# 048: has preformer <==> collector (is recurring)
+# 382: medium of performance looks  like it might work for an event
+# 384: Key -- how does this compare to species names and identifiers?
+# 386: Creator/Contributor -- collection events and people?
+# 387: REPRESENTATIVE EXPRESSION CHARACTERISTICS: could this work for experiments and grow outs?
+# 388: Time Period of Creation: might work as a general tool for (re)packaging
+# 400: possibly (sub)collections and splitting into packets, etc.
+# 410: Meeting Name?  How should this be used?  Just as a regular meetings?
+
+# 500/501: Notes: when should I sue them?
+
+# 535: Location of Originals/Duplicates Note: where are the materials housed?
+
+# 541: Immediate Source of Acquisition Note: how was it aquired (gift, purchase, wildcraft)
+
+# 561: Ownership and Custodial History: needed for provenance of source and care.
+
+# 567: Methodology Note: collection technique, treatment, storage or other processing.
+
+# 583: Action Note: for just about any event (including experiments)
+
+# 648: Subject Added Entry--Chronological Term: need time and
+#        duration stamps for things.  Is this the best way?
+
+# 852 - Location
+
+###############################################################################
+
+# 526: Study Program Information Note: scientific study?
