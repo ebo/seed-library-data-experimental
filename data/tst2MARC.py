@@ -9,7 +9,13 @@ import os,sys
 # this is a collection of class:variable substitutions to MARC21 tags.
 # FIXME: define a tag for the version accession number -- used for data migration (538?)
 # FIXME: probably need to add something for when you can have more than 1 0=>not required?
+# FIXME: I probably will not be able to use a simple class/dict for
+#        entries that can take multiple copies of a particular tag.
+#        Need to refactor code to support.
 ###############################################################################
+# FIXME: refactor the mappings below to read in a CSV file with the entries in them.
+###############################################################################
+
 map = [ # Species level tags (analogous to author)
         #   also look at 600 - SUBJECT ADDED ENTRY--PERSONAL NAME
         #                650 - SUBJECT ADDED ENTRY--TOPICAL TERM
