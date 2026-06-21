@@ -4,17 +4,14 @@
 #   behaves. It is intended for experimental purposes only.
 
 import os,sys
+import pymarc
 
 ###############################################################################
 # this is a collection of class:variable/value substitutions to MARC21 tags.
 #
-# FIXME: probably need to add something for when you can have more than 1 0=>not required?
-#
 # FIXME: I probably will not be able to use a simple class/dict for
 #        entries that can take multiple copies of a particular tag.
 #        Need to refactor code to support.
-###############################################################################
-# FIXME: refactor the mappings below to read in a CSV file with the entries in them.
 ###############################################################################
 
 # The generic base class.  Most functions have been refactored to
@@ -28,15 +25,24 @@ import os,sys
 # FIXME: this is a Teriable name.  Need a better one.
 class Taxonomy:
     def __init__(self):
-        # set the version number - set for all classes.
-
         # FIXME: define the version number/string as part of the
         #        external project configuration.
+        # set the version number - set for all classes.
         self.set("version", "0.1")
 
+    # generate a variable name from a mapping
+    def __gen_name__(self, dct):
+        print("****",dct)
+        return '|'.join([dct['tag'],dct['subtag'],dct['var']])
+    
     # set the key/value pair as a class variable.
     def set(self, var, val):
-        setattr(self, var, val)
+        global mappings
+        # find the single unique entry with the variable name
+        dct = [d for d in mappings if d['var']==var]
+        #print(f"count: '{len(dct)}'")
+        #print(f"map entry: '{dct}'")
+        setattr(self, self.__gen_name__(dct[0]), val)
         return
 
     def __str__(self):
@@ -48,9 +54,80 @@ class Taxonomy:
     def MARC21(self):
         # FIXME: here is where the magic happens to generate the
         #        specific MARC21 records.
-        print(f"{self.ctype} MARC21:",self.keys())
-        print("Not implmented yet...\n")
 
+        from pymarc import Record, Field, Subfield, MARCWriter
+
+        global mappings
+        # 1. Initialize a new blank MARC record
+        record = Record()
+
+        # 2. Add control fields (tags under 010 do not use indicators
+        #    or subfields)
+        # FIXME: haw did they determine the data value here?
+        record.add_field(
+            Field(tag='001', data='ocm01234567')
+        )
+
+        # do not process tags afer done once
+        #processed = []
+        #to_process = sorted(set([itm['tag'] for itm in mappings])
+        #print("tags:",to_process)
+
+        # iterate through the tags and find all set
+        for t in sorted(set([itm['tag'] for itm in mappings])):
+            print(f"processing tag '{t}':")
+            nsubfields = []
+            for itm in list(vars(self)):
+                try:
+                    #l = itm.split('|')
+                    [dt,ds,dv] = itm.split('|') #alternative method
+                except:
+                    continue
+                
+                if dt == t:
+                    v = getattr(self,itm)
+                    print(f" ... {dt,ds,dv} = {v}")
+                    nsubfields.append(Subfield(code=ds, value=v))
+                    print(f"tag={dt}  type={type(dt)}")
+                    print(f"subtag={ds}  type={type(ds)}")
+                    print(f"var={dv}  type={type(dv)}")
+                    print(f"value={v}  type={type(v)}")
+                    print("")
+                    
+            record.add_field(
+                Field(
+                    tag=int(t),
+                    # FIXME:
+                    indicators=['1', ' '],
+                    subfields=nsubfields
+                )
+            )
+            
+        # 4. Save the record to a binary MARC (.mrc) file
+        #with open('output_records.txt', 'w', encoding='utf-8') as file_handler:
+        with open('output_records.txt', 'wb') as file_handler:
+            if True:
+                writer = MARCWriter(file_handler)
+                writer.write(record)
+                writer.close()
+            else:
+                my_record = record.as_marc()
+                print(my_record)
+            
+        # Example: Species (Author) Main Entry (100)
+        #subfields = self.getsubfields(self, tag=100
+        #record.add_field(
+        #    Field(
+        #        tag='100',
+        #        indicators=['1', ' '],
+        #        subfields=[
+        #            Subfield(code='a', value='Thomas, David,'),
+        #            Subfield(code='e', value='species.')
+        #        ]
+        #    )
+        #)
+
+        
     # check_required is a simple consistency check to ensure that all
     # required arguments are included.  Returns True if OK and False
     # otherwise (with simple error messages of what is missing).
@@ -105,12 +182,86 @@ if __name__ == "__main__":
     if True:
         # simple test of a species I am interested in
         s = Species()
-        s.set("name","Sanguinaria canadensis L.")
+        s.set("sp_name","Sanguinaria canadensis L.")
         s.set("urn","urn:usda:saca13")
         s.set("common","bloodroot")
         
+    if False:
         print(s)
         print(repr(s))
 
         print("check:",s.check_required())
 
+    if True:
+        s.MARC21()
+        
+    if False:
+        from pymarc import Record, Field, Subfield, MARCWriter
+
+        # 1. Initialize a new blank MARC record
+        record = Record()
+
+        # 2. Add control fields (tags under 010 do not use indicators
+        #    or subfields)
+        record.add_field(
+            Field(tag='001', data='ocm01234567')
+        )
+
+        
+        # 3. Add variable data fields using Subfield objects
+        # Example: ISBN (020)
+        record.add_field(
+            Field(
+                tag='020',
+                indicators=[' ', ' '],
+                subfields=[
+                    Subfield(code='a', value='9780135957059')
+                ]
+            )
+        )
+
+        # Example: Author Main Entry (100)
+        record.add_field(
+            Field(
+                tag='100',
+                indicators=['1', ' '],
+                subfields=[
+                    Subfield(code='a', value='Thomas, David,'),
+                    Subfield(code='e', value='author.')
+                ]
+            )
+        )
+        
+        # Example: Title Statement (245)
+        record.add_field(
+            Field(
+                tag='245',
+                indicators=['1', '4'],  # Ind 2 = 4 ignores "The " when indexing/sorting
+                subfields=[
+                    Subfield(code='a', value='The pragmatic programmer : '),
+                    Subfield(code='b', value='your journey to mastery / '),
+                    Subfield(code='c', value='David Thomas, Andrew Hunt.')
+                ]
+            )
+        )
+
+        # Example: Publication Information (264 / 260)
+        record.add_field(
+            Field(
+                tag='264',
+                indicators=[' ', '1'],
+                subfields=[
+                    Subfield(code='a', value='Boston : '),
+                    Subfield(code='b', value='Addison-Wesley, '),
+                    Subfield(code='c', value='2020.')
+                ]
+            )
+        )
+
+        # 4. Save the record to a binary MARC (.mrc) file
+        with open('output_records.mrc', 'wb') as file_handler:
+            writer = MARCWriter(file_handler)
+            writer.write(record)
+            writer.close()
+            
+        print("MARC record successfully created and saved.")
