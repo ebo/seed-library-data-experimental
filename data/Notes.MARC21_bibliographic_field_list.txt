@@ -3325,13 +3325,14 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
 
 
 --Main Entry Fields (1XX)--
+FIXME: use as a species...
 100 - MAIN ENTRY--PERSONAL NAME (NR)
    Indicators
       First - Type of personal name entry element
-         0 - Forename
-         1 - Surname
+         0 - Forename  <==> genus
+         1 - Surname  <==> species
          2 - Multiple surname [OBSOLETE]
-         3 - Family name
+         3 - Family name  <==> family
       Second - Undefined
          # - Undefined
       Second - Main entry/subject relationship (BK MU SE) [OBSOLETE]
@@ -3359,6 +3360,7 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)
 
+FIXME: use as a genetic modified or patented species...
 110 - MAIN ENTRY--CORPORATE NAME (NR)
    Indicators
       First - Type of corporate name entry element
@@ -3471,39 +3473,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)
 
-211 - ACRONYM OR SHORTENED TITLE (R) [OBSOLETE]
-   Indicators
-      First - Title added entry
-         0 - No title added entry
-         1 - Title added entry
-      Second - Nonfiling characters
-         0-9 - Number of nonfiling characters present
-   Subfield Codes
-      $a - Acronym or shortened title (NR)
-      $6 - Linkage (NR)
-
-212 - VARIANT ACCESS TITLE (R) [OBSOLETE]
-   Indicators
-      First - Title added entry
-         0 - No title added entry
-         1 - Title added entry
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Variant access title (NR)
-      $6 - Linkage (NR)
-
-214 - AUGMENTED TITLE (R) [OBSOLETE]
-   Indicators
-      First - Title added entry
-         0 - No title added entry
-         1 - Title added entry
-      Second - Nonfiling characters
-         0-9 - Number of nonfiling characters present
-   Subfield Codes
-      $a - Augmented title (NR)
-      $6 - Linkage (NR)
-
 222 - KEY TITLE (R)
    Indicators
       First - Undefined
@@ -3550,17 +3519,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $6 - Linkage (NR)
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)
-
-241 - ROMANIZED TITLE (BK AM CF MP MU VM) (NR) [OBSOLETE]
-   Indicators
-      First - Title added entry
-         0 - No title added entry
-         1 - Title added entry
-      Second - Nonfiling characters
-         0-9 - Number of nonfiling characters
-   Subfield Codes
-      $a - Romanized title (NR)
-      $h - Medium (NR)
 
 242 - TRANSLATION OF TITLE BY CATALOGING AGENCY (R)
    Indicators
@@ -3876,16 +3834,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)
 
-265 - SOURCE FOR ACQUISITION/SUBSCRIPTION ADDRESS (NR) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Source for acquisition/subscription address (R)
-      $6 - Linkage (NR)
-
 270 - ADDRESS (R)
    Indicators
       First - Level
@@ -3939,63 +3887,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)
 
-301 - PHYSICAL DESCRIPTION FOR FILMS (PRE-AACR 2) (VM) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Extent of item (NR)
-      $b - Sound characteristics (NR)
-      $c - Color characteristics (NR)
-      $d - Dimensions (NR)
-      $e - Accompanying material (NR)
-      $f - Speed (NR)
-
-302 - PAGE OR ITEM COUNT (BK AM) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Page count (NR)
-
-303 - UNIT COUNT (AM) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Unit count (NR)
-
-304 - LINEAR FOOTAGE (AM) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Linear footage (NR)
-
-305 - PHYSICAL DESCRIPTION FOR SOUND RECORDINGS (Pre-AACR 2) (MU) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Extent (NR)
-      $b - Other physical details (NR)
-      $c - Dimensions (NR)
-      $d - Microgroove or standard (NR)
-      $e - Stereophonic, monaural (NR)
-      $f - Number of tracks (NR)
-      $m - Serial identification (NR)
-      $n - Matrix and/or take number (NR)
-      $6 - Linkage (NR)
 
 306 - PLAYING TIME (NR)
    Indicators
@@ -4021,21 +3912,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
 
-308 - PHYSICAL DESCRIPTION FOR FILMS (ARCHIVAL) (VM) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Number of reels (NR)
-      $b - Footage (NR)
-      $c - Sound characteristics (NR)
-      $d - Color characteristics (NR)
-      $e - Width (NR)
-      $f - Presentation format (NR)
-      $6 - Linkage (NR)
-
 310 - CURRENT PUBLICATION FREQUENCY (R)
    Indicators
       First - Undefined
@@ -4050,17 +3926,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $2 - Source (NR)
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
-
-315 - FREQUENCY (NR) (CF MP) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Frequency (R)
-      $b - Dates of frequency (R)
-      $6 - Linkage (NR)
 
 321 - FORMER PUBLICATION FREQUENCY (R)
    Indicators
@@ -4374,17 +4239,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)      
 
-350 - PRICE (NR) (BK AM CF MU VM SE) [OBSOLETE] 
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Price (R)
-      $b - Form of issue (R)
-      $6 - Linkage (NR)
-
 351 - ORGANIZATION AND ARRANGEMENT OF MATERIALS (R)
    Indicators
       First - Undefined
@@ -4472,15 +4326,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $g - Other restrictions (R)
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
-
-359 - RENTAL PRICE (VM) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Rental price (NR)
 
 361 - STRUCTURED OWNERSHIP AND CUSTODIAL HISTORY (R)
    Indicators
@@ -4922,23 +4767,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
 
-440 - SERIES STATEMENT/ADDED ENTRY--TITLE (R) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Nonfiling characters
-         0-9 - Number of nonfiling characters 
-   Subfield Codes
-      $a - Title (NR)
-      $n - Number of part/section of a work (R)
-      $p - Name of part/section of a work (R)
-      $v - Volume number/sequential designation  (NR)
-      $w - Bibliographic record control number (R)
-      $x - International Standard Serial Number (NR)
-      $0 - Authority record control number (R)
-      $6 - Linkage (NR)
-      $8 - Field link and sequence number (R)
-
 490 - SERIES STATEMENT (R)
    Indicators
       First - Series tracing policy
@@ -5008,15 +4836,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)
 
-503 - BIBLIOGRAPHIC HISTORY NOTE (R) (BK CF MU) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Bibliographic history note (NR)
-      $6 - Linkage (NR)
 
 504 - BIBLIOGRAPHY, ETC. NOTE (R)
    Indicators
@@ -5138,16 +4957,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
 
-512 - EARLIER OR LATER VOLUMES SEPARATELY CATALOGED NOTE (SE) (R) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Earlier or later volumes separately cataloged note (NR)
-      $6 - Linkage (NR)
-
 513 - TYPE OF REPORT AND PERIOD COVERED NOTE (R)
    Indicators
       First - Undefined
@@ -5209,19 +5018,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
 
-517 - CATEGORIES OF FILMS NOTE (ARCHIVAL) (VM) (NR) [OBSOLETE]
-   Indicators
-      First - Fiction specification
-         0 - Nonfiction
-         1 - Fiction
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Different formats (NR)
-      $b - Content descriptors (R)
-      $c - Additional animation techniques (R)
 
 518 - DATE/TIME AND PLACE OF AN EVENT NOTE (R)
    Indicators
@@ -5297,17 +5093,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
 
-523 - TIME PERIOD OF CONTENT NOTE (NR) (CF) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Time period of content note (NR)
-      $b - Dates of data collection note (NR)
-      $6 - Linkage (NR)
-
 524 - PREFERRED CITATION OF DESCRIBED MATERIALS NOTE (R)
    Indicators
       First - Display constant controller
@@ -5352,16 +5137,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $5 - Institution to which field applies (NR)
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
-
-527 - CENSORSHIP NOTE (VM) (R) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Censorship note (NR)
-      $6 - Linkage (NR)
 
 530 - ADDITIONAL PHYSICAL FORM AVAILABLE NOTE (R)
    Indicators
@@ -5493,17 +5268,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
 
-537 - SOURCE OF DATA NOTE (NR) (CF) [OBSOLETE]
-   Indicators
-      First - Display constant controller
-         # - No information provided
-         8 - No display constant generated
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Source of data note (NR)
-      $6 - Linkage (NR)
-
 538 - SYSTEM DETAILS NOTE (R)
    Indicators
       First - Undefined
@@ -5597,16 +5361,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $3 - Materials specified (NR)
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
-
-543 - SOLICITATION INFORMATION NOTE (AM) (R) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Solicitation information note (NR)
-      $6 - Linkage (NR)
 
 544 - LOCATION OF OTHER ARCHIVAL MATERIALS NOTE (R)
    Indicators
@@ -5827,17 +5581,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
 
-570 - EDITOR NOTE (SE) (R) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Editor note (NR) 
-      $z - Source of note information (NR)
-      $6 - Linkage (NR)
-
 580 - LINKING ENTRY COMPLEXITY NOTE (R)
    Indicators
       First - Undefined
@@ -5864,17 +5607,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $3 - Materials specified (NR)
       $6 - Linkage (NR)
       $8 - Field link and sequence number (R)
-
-582 - RELATED COMPUTER FILES NOTE (R) (CF) [OBSOLETE]
-   Indicators
-      First - Display constant controller
-         # - No information provided
-         8 - No display constant generated
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Related computer files note (NR)
-      $6 - Linkage (NR)
 
 583 - ACTION NOTE (R)
    Indicators
@@ -5963,26 +5695,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $8 - Field link and sequence number (R)
 	  
 --59X - LOCAL NOTES--
-590 - LOCAL NOTE (BK CF MP MU SE VM MX) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Local note (NR)
-
-590 - RECEIPT DATE NOTE (VM) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Receipt date (NR)
-      $b - Provenance (NR)
-      $d - Condition of individual reels (NR)
-      $d - Origin of safety copy (NR)
 
 
 --Subject Access Fields (6XX)--
@@ -6303,18 +6015,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)
 
-652 - SUBJECT ADDED ENTRY--REVERSED GEOGRAPHIC (BK MP SE) [OBSOLETE] 
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Geographic name of place element (NR)
-      $x - General subdivision (R)
-      $y - Chronological subdivision (R)
-      $z - Geographic subdivision (R)
-
 653 - INDEX TERM--UNCONTROLLED (R)
    Indicators
       First - Level of index term
@@ -6541,35 +6241,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)
 
-705 - ADDED ENTRY--PERSONAL NAME (PERFORMER) (MU) [OBSOLETE]
-   Indicators
-      First - Type of personal name entry element
-         0 - Forename
-         1 - Single surname
-         2 - Multiple surname
-         3 - Family name
-      Second - Type of added entry
-         0 - Alternative entry
-         1 - Secondary entry
-         2 - Analytical entry
-   Subfield Codes
-      $a - Personal name (NR)
-      $b - Numeration (NR)
-      $c - Titles and other words associated with a name (R)
-      $d - Dates associated with a name (NR)
-      $e - Relator term (R)
-      $f - Date of a work (NR)
-      $g - Miscellaneous information (R)
-      $h - Medium (NR)
-      $k - Form subheading (R)
-      $l - Language of a work (NR)
-      $m - Medium of performance for music (R)
-      $n - Number of part/section of a work (R)
-      $o - Arranged statement for music (NR)
-      $p - Name of part/section of a work (R)
-      $r - Key for music (NR)
-      $s - Version (NR)
-      $t - Title of a work (NR)
 
 710 - ADDED ENTRY--CORPORATE NAME (R)
    Indicators
@@ -6658,33 +6329,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $7 - Data provenance (R)
       $8 - Field link and sequence number (R)
 
-715 - ADDED ENTRY--CORPORATE NAME (PERFORMING GROUP) (MU) [OBSOLETE]
-   Indicators
-      First - Type of corporate name entry element
-         0 - Inverted name
-         1 - Jurisdiction name
-         2 - Name in direct order
-      Second - Type of added entry
-         0 - Alternative entry
-         1 - Secondary entry
-         2 - Analytical entry
-   Subfield Codes
-      $a - Corporate name or jurisdiction name (NR)
-      $b - Subordinate unit (R)
-      $e - Relator term (R)
-      $f - Date of a work (NR)
-      $g - Miscellaneous information (R)
-      $h - Medium (NR)
-      $k - Form subheading (R)
-      $l - Language of a work (NR)
-      $m - Medium of performance for music (R)
-      $n - Number of part/section/meeting (R)
-      $o - Arranged statement for music (NR)
-      $p - Name of part/section of a work (R)
-      $r - Key for music (NR)
-      $s - Version (NR)
-      $t - Title of a work (NR)
-      $u - Nonprinting information (NR)
 
 720 - ADDED ENTRY--UNCONTROLLED NAME (R)
    Indicators
@@ -7667,17 +7311,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
          1 - Bibliographic level
       $8 - Field link and sequence number (R)
 
-840 - SERIES ADDED ENTRY--TITLE (R) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Nonfiling characters
-         0-9 - Number of nonfiling characters 
-   Subfield Codes
-      $a - Title (NR)
-      $h - Medium (NR)
-      $v - Volume/sequential designation (NR)
-
 
 --Holdings, Location, Alternate Graphics, etc. Fields (841-88X)--
 841 - HOLDINGS CODED DATA VALUES (NR)
@@ -7703,22 +7336,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
       $e - Retention statement (NR) (CF MU VM SE) [OBSOLETE]
       $8 - Field link and sequence number (R)
 
-851 - LOCATION (R) [OBSOLETE]
-   Indicators
-      First - Undefined
-         # - Undefined
-      Second - Undefined
-         # - Undefined
-   Subfield Codes
-      $a - Name (custodian or owner) (NR)
-      $b - Institutional division (NR)
-      $c - Street address (NR)
-      $d - Country (NR)
-      $e - Location of units (NR)
-      $f - Item number (NR)
-      $g - Repository location code (NR)
-      $3 - Materials specified (NR)
-      $6 - Linkage (NR)
 
 852 - LOCATION (R)
    Indicators
@@ -7880,14 +7497,6 @@ Source: https://www.loc.gov/marc/bibliographic/ecbdlist.html
 867 - TEXTUAL HOLDINGS--SUPPLEMENTARY MATERIAL (R)
 
 868 - TEXTUAL HOLDINGS--INDEXES (R)
-
-870 - VARIANT PERSONAL NAME (SE) [OBSOLETE]
-
-871 - VARIANT CORPORATE NAME (SE) [OBSOLETE]
-
-872 - VARIANT CONFERENCE OR MEETING NAME (SE) [OBSOLETE]
-
-873 - VARIANT UNIFORM TITLE HEADING (SE) [OBSOLETE]
 
 876 - ITEM INFORMATION--BASIC BIBLIOGRAPHIC UNIT (R)
 
