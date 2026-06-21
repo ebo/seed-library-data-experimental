@@ -6,9 +6,10 @@
 import os,sys
 
 ###############################################################################
-# this is a collection of class:variable substitutions to MARC21 tags.
-# FIXME: define a tag for the version accession number -- used for data migration (538?)
+# this is a collection of class:variable/value substitutions to MARC21 tags.
+#
 # FIXME: probably need to add something for when you can have more than 1 0=>not required?
+#
 # FIXME: I probably will not be able to use a simple class/dict for
 #        entries that can take multiple copies of a particular tag.
 #        Need to refactor code to support.
@@ -16,12 +17,8 @@ import os,sys
 # FIXME: refactor the mappings below to read in a CSV file with the entries in them.
 ###############################################################################
 
-# Note: mappings has been refactored to be CSV file driven.
-# mappings = [ # Species level tags (analogous to author)...
-
-
 # The generic base class.  Most functions have been refactored to
-# trigger off of the ctype variable, which is set i nthe deerived
+# trigger off of the ctype variable, which is set in the derived
 # classes below.
 #
 # This generic base class is driven by a combination of the type of
@@ -31,8 +28,13 @@ import os,sys
 # FIXME: this is a Teriable name.  Need a better one.
 class Taxonomy:
     def __init__(self):
-        self.ctype = None
-        
+        # set the version number - set for all classes.
+
+        # FIXME: define the version number/string as part of the
+        #        external project configuration.
+        self.set("version", "0.1")
+
+    # set the key/value pair as a class variable.
     def set(self, var, val):
         setattr(self, var, val)
         return
@@ -44,8 +46,15 @@ class Taxonomy:
         return "".join([f"{self.ctype}(",','.join([f"{k}:'{getattr(self, k)}'" for k in list(vars(self))]),")"])
 
     def MARC21(self):
+        # FIXME: here is where the magic happens to generate the
+        #        specific MARC21 records.
         print(f"{self.ctype} MARC21:",self.keys())
+        print("Not implmented yet...\n")
 
+    # check_required is a simple consistency check to ensure that all
+    # required arguments are included.  Returns True if OK and False
+    # otherwise (with simple error messages of what is missing).
+    # FIXME: need to migrate error messages into proper logging.
     def check_required(self):
         ret = True
         required = [itm["var"] for itm in mappings if itm["required"]==True and itm["class"]==self.ctype]
@@ -60,12 +69,14 @@ class Taxonomy:
 # the Species class covers the biographic analogy of species <=> author.
 class Species (Taxonomy):
     def __init__(self):
+        super().__init__()
         self.ctype = "Species"
 
 # the Collection class covers the bibliographic analogy of species <=>
 # books/events and serial publications.
 class Collection (Taxonomy):
     def __init__(self):
+        super().__init__()
         self.ctype = "Collection"
 
 ###############################################################################
@@ -78,7 +89,7 @@ if __name__ == "__main__":
     with open(map_file, mode='r') as mp:
         import csv
         
-        # Create a DictReader object
+        # Create a DictReader object (ignoring any comments)
         reader = csv.DictReader(filter(lambda row: row[0]!='#', mp))
     
         # Convert the reader object into a list of dictionaries
@@ -102,6 +113,4 @@ if __name__ == "__main__":
         print(repr(s))
 
         print("check:",s.check_required())
-
-
 
