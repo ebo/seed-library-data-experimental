@@ -1,4 +1,7 @@
 "class","tag","subtag","var","required"
+# version information -- for future data migration
+# FIXME: define a tag for the version accession number -- used for data migration (538? 251? or other)
+"Version",251,"$0","version",True
 # some of these entries are repeatable, some required, some desired.
 "Species",100,"$a","name",True
 "Species",100,"$c","common",False
