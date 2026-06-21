@@ -1,22 +1,22 @@
 "class","tag","subtag","var","required"
 # version information -- for future data migration
 # FIXME: define a tag for the version accession number -- used for data migration (538? 251? or other)
-"Version",251,"$0","version",True
+"Version",251,"0","version",True
 # some of these entries are repeatable, some required, some desired.
-"Species",100,"$a","name",True
-"Species",100,"$c","common",False
-"Species",100,"$g","germination",False
-"Species",100,"$j","growth_form",False
+"Species",100,"a","sp_name",True
+"Species",100,"c","common",False
+"Species",100,"g","germination",False
+"Species",100,"j","growth_form",False
 # part/number?
-"Species",100,"$q","full_name",False
+"Species",100,"q","full_name",False
 # veg class is a 
-"Species",100,"$u","veg_class",False
+"Species",100,"u","veg_class",False
 
-"Species",100,"$0","urn",False
-"Species",100,"$1","species_id",False
+"Species",100,"0","urn",False
+"Species",100,"1","species_id",False
 # define difference between link, field link and others.
-"Species",100,"$6","link",False
-"Species",100,"$8","field_link",False
+"Species",100,"6","link",False
+"Species",100,"8","field_link",False
 
 # 210: abbreviated titles.  This might work for encodings (eg. USDA:SACA13)
 
@@ -45,11 +45,11 @@
 ###############################################################################
 
 # collections levels (analogous to ????)
-"Collection",110,"$a","name",False
-"Collection",110,"$0","id",True
+"Collection",110,"a","col_name",False
+"Collection",110,"0","id",True
 # define difference between link, field link and others.
-"Collection",110,"$6","link",False
-"Collection",110,"$8","field_link",False
+"Collection",110,"6","link",False
+"Collection",110,"8","field_link",False
 
 # 048: has preformer <==> collector (is recurring)
 # 382: medium of performance looks  like it might work for an event
