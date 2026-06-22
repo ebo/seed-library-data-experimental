@@ -5,6 +5,11 @@
 
 import os,sys
 import pymarc
+from datetime import datetime
+
+# uuid7 (time-ordered) unique ID's are built in as of python-3.14+
+if sys.version_info < (3, 14):
+    import uuid_utils as uuid
 
 ###############################################################################
 # this is a collection of class:variable/value substitutions to MARC21 tags.
@@ -70,7 +75,6 @@ class Taxonomy:
         # unique record ID. Generated with a time-orded UUID
         # FIXME: uuid_utils is needed for python-3.13 or older.
         #        python-3.14+ comes with uuid7 built in
-        import uuid_utils as uuid
         nuid = uuid.uuid7()
         record.add_field(Field(tag='001', data=nuid))
 
@@ -78,7 +82,6 @@ class Taxonomy:
         record.add_field(Field(tag='003', data='Koha-Seed'))
 
         #  date/time of record creation
-        from datetime import datetime
         record.add_field(Field(tag='005', data=datetime.now().strftime("%Y%m%d%H%M%S.%f")[:-4]))
 
         # iterate through the tags and find all set
