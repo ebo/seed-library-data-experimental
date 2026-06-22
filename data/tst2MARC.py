@@ -64,18 +64,23 @@ class Taxonomy:
         
         record = Record()
 
-        # 2. Add control fields (tags under 010 do not use indicators
+        # Add control fields (tags under 010 do not use indicators
         #    or subfields)
-        # FIXME: how did they determine the data value here?
-        #    https://www.loc.gov/marc/bibliographic/bd001.html
-        # unique record ID
-        # FIXME: need to come up with a generating function
-        record.add_field(Field(tag='001', data='ocm01234567'))
+        #
+        # unique record ID. Generated with a time-orded UUID
+        # FIXME: uuid_utils is needed for python-3.13 or older.
+        #        python-3.14+ comes with uuid7 built in
+        import uuid_utils as uuid
+        nuid = uuid.uuid7()
+        record.add_field(Field(tag='001', data=nuid))
+
         #  control number identifier
         record.add_field(Field(tag='003', data='Koha-Seed'))
+
         #  date/time of record creation
         from datetime import datetime
-        record.add_field(Field(tag='005', data=datetime.now().strftime("%Y%m%d%H%M%S.%f")))
+        record.add_field(Field(tag='005',
+                               data=datetime.now().strftime("%Y%m%d%H%M%S.%f")))
 
         # iterate through the tags and find all set
         for t in sorted(set([itm['tag'] for itm in mappings])):
