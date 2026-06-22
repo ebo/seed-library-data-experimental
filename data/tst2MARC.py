@@ -67,9 +67,15 @@ class Taxonomy:
         # 2. Add control fields (tags under 010 do not use indicators
         #    or subfields)
         # FIXME: how did they determine the data value here?
-        record.add_field(
-            Field(tag='001', data='ocm01234567')
-        )
+        #    https://www.loc.gov/marc/bibliographic/bd001.html
+        # unique record ID
+        # FIXME: need to come up with a generating function
+        record.add_field(Field(tag='001', data='ocm01234567'))
+        #  control number identifier
+        record.add_field(Field(tag='003', data='Koha-Seed'))
+        #  date/time of record creation
+        from datetime import datetime
+        record.add_field(Field(tag='005', data=datetime.now().strftime("%Y%m%d%H%M%S.%f")))
 
         # iterate through the tags and find all set
         for t in sorted(set([itm['tag'] for itm in mappings])):
