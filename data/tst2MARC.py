@@ -79,8 +79,7 @@ class Taxonomy:
 
         #  date/time of record creation
         from datetime import datetime
-        record.add_field(Field(tag='005',
-                               data=datetime.now().strftime("%Y%m%d%H%M%S.%f")))
+        record.add_field(Field(tag='005', data=datetime.now().strftime("%Y%m%d%H%M%S.%f")[:-4]))
 
         # iterate through the tags and find all set
         for t in sorted(set([itm['tag'] for itm in mappings])):
