@@ -30,10 +30,15 @@ class Taxonomy:
         # set the version number - set for all classes.
         self.set("version", "0.1")
 
-    # generate a variable name from a mapping
+    # generate a variable name from a mapping.  This roughly =
+    #    <tag>|<subtag>|<var>
     def __gen_name__(self, dct):
-        print("****",dct)
         return '|'.join([dct['tag'],dct['subtag'],dct['var']])
+
+    # decode the '|' concatened name.
+    def __decode_name__(self, name):
+        [dt,ds,dv] = name.split('|')
+        return dt,ds,dv
     
     # set the key/value pair as a class variable.
     def set(self, var, val):
@@ -51,27 +56,20 @@ class Taxonomy:
     def __repr__(self):
         return "".join([f"{self.ctype}(",','.join([f"{k}:'{getattr(self, k)}'" for k in list(vars(self))]),")"])
 
+    # MARC21 converts the variable mappings to a MARC21 record.
     def MARC21(self):
-        # FIXME: here is where the magic happens to generate the
-        #        specific MARC21 records.
-
-        from pymarc import Record, Field, Subfield, MARCWriter
-
+        from pymarc import Record, Field, Subfield, MARCWriter, MARCReader
+        import io
         global mappings
-        # 1. Initialize a new blank MARC record
+        
         record = Record()
 
         # 2. Add control fields (tags under 010 do not use indicators
         #    or subfields)
-        # FIXME: haw did they determine the data value here?
+        # FIXME: how did they determine the data value here?
         record.add_field(
             Field(tag='001', data='ocm01234567')
         )
-
-        # do not process tags afer done once
-        #processed = []
-        #to_process = sorted(set([itm['tag'] for itm in mappings])
-        #print("tags:",to_process)
 
         # iterate through the tags and find all set
         for t in sorted(set([itm['tag'] for itm in mappings])):
@@ -79,25 +77,24 @@ class Taxonomy:
             nsubfields = []
             for itm in list(vars(self)):
                 try:
-                    #l = itm.split('|')
-                    [dt,ds,dv] = itm.split('|') #alternative method
+                    dt,ds,dv = self.__decode_name__(itm)
                 except:
                     continue
                 
                 if dt == t:
                     v = getattr(self,itm)
-                    print(f" ... {dt,ds,dv} = {v}")
+                    #print(f" ... {dt,ds,dv} = {v}")
                     nsubfields.append(Subfield(code=ds, value=v))
-                    print(f"tag={dt}  type={type(dt)}")
-                    print(f"subtag={ds}  type={type(ds)}")
-                    print(f"var={dv}  type={type(dv)}")
-                    print(f"value={v}  type={type(v)}")
-                    print("")
+                    #print(f"tag={dt}  type={type(dt)}")
+                    #print(f"subtag={ds}  type={type(ds)}")
+                    #print(f"var={dv}  type={type(dv)}")
+                    #print(f"value={v}  type={type(v)}")
+                    #print("")
                     
             record.add_field(
                 Field(
-                    tag=int(t),
-                    # FIXME:
+                    tag=str(t),
+                    # FIXME: where should I get/set indicators?
                     indicators=['1', ' '],
                     subfields=nsubfields
                 )
@@ -105,15 +102,28 @@ class Taxonomy:
             
         # 4. Save the record to a binary MARC (.mrc) file
         #with open('output_records.txt', 'w', encoding='utf-8') as file_handler:
-        with open('output_records.txt', 'wb') as file_handler:
-            if True:
+        if False:
+            # write out record in binary form
+            with open('output_records.txt', 'wb') as file_handler:
                 writer = MARCWriter(file_handler)
                 writer.write(record)
                 writer.close()
-            else:
-                my_record = record.as_marc()
-                print(my_record)
-            
+                return
+        elif False:
+            # return binary string represnetation of the record
+            mstream = io.BytesIO()
+            writer = MARCWriter(mstream)
+            writer.write(record)
+        
+            marc_string = mstream.getvalue().decode('utf-8')
+            print(marc_string)
+            writer.close()
+            return marc_string
+        else:
+            # convert the record to a human readable form
+            trec = '\n'.join([str(r) for r in MARCReader(record.as_marc())])
+            return trec
+
         # Example: Species (Author) Main Entry (100)
         #subfields = self.getsubfields(self, tag=100
         #record.add_field(
@@ -193,7 +203,9 @@ if __name__ == "__main__":
         print("check:",s.check_required())
 
     if True:
-        s.MARC21()
+        ret = s.MARC21()
+        print("record:")
+        print(ret)
         
     if False:
         from pymarc import Record, Field, Subfield, MARCWriter
