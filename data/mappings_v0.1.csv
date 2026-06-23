@@ -83,4 +83,11 @@
 
 # 526: Study Program Information Note: scientific study?
 
-# 980:
+# 910: Corresponding field(s): 	110, 710 (Corporate Name)
+# 981: Corresponding field(s): 	810 (Series Corporate Name)
+# 990: No corresponding field
+
+# FIXME: add indicator field(s)
+#"class","tag","subtag","var","required","recurring"
+"aux",910,"a","auxilary_info",False,True # indicator '0'
+"aux",910,"b","auxilary_data",False,True # indicator '0'
