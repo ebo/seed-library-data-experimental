@@ -215,7 +215,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog=prog, description="Convert a Species or Seed Collection to a MARC21 record (experimental testing).")
 
     parser.add_argument("-i","--infile", type=str, required=True,
-                        help="The input species/collection file")
+                        help="The input species/collection file (required)")
     parser.add_argument("-m","--mapfile", type=str, required=False,
                         default="./mappings_v0.1.csv",
                         help="The MARC21 mappings file (default: %(default)s)")
@@ -234,7 +234,8 @@ if __name__ == "__main__":
     logging.basicConfig(level=args.log,handlers=[logging.StreamHandler()],
                         format=FORMAT)
     if args.logfile is not None:
-        file_handler = logging.FileHandler(args.logfile, mode="w", encoding="utf-8")
+        file_handler = logging.FileHandler(args.logfile, mode="w",
+                                           encoding="utf-8", delay=True)
         log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         formatter = logging.Formatter(fmt=FORMAT)
         
