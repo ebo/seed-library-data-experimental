@@ -50,9 +50,23 @@ class Taxonomy:
         global mappings
         # find the single unique entry with the variable name
         dct = [d for d in mappings if d['var']==var]
-        #print(f"count: '{len(dct)}'")
-        #print(f"map entry: '{dct}'")
-        setattr(self, self.__gen_name__(dct[0]), val)
+        dl = len(dct)
+
+        if 1 == dl:
+            # Generate a database name from the map structure.
+            setattr(self, self.__gen_name__(dct[0]), val)
+        elif 0 == dl:
+            # No name was found. skip and warn about bad name
+            # FIXME: convert to proper logging
+            print(f"Warning: variable '{var}' not found.")
+        else:
+            # Multiple map entries found.  Post error to repair mappings.
+            # FIXME: convert to proper logging
+            print(f"Error: variable '{var}' returns more than one mapping.")
+            print(f"       repair mappings file entries:")
+            for d in dct:
+                print(f"    {d}")
+
         return
 
     def __str__(self):
@@ -205,9 +219,12 @@ if __name__ == "__main__":
     if True:
         # simple test of a species I am interested in
         s = Species()
-        s.set("sp_name","Sanguinaria canadensis L.")
-        s.set("urn","urn:usda:saca13")
-        s.set("common","bloodroot")
+        s.set("full_name","Sanguinaria canadensis L.")
+        s.set("common_name","bloodroot")
+        #s.set("species_id","urn:usda:saca13")
+        s.set("species_id","saca13")
+        s.set("source","plantsdb")
+        s.set("link","https://www.loc.gov/standards/sourcelist/taxonomic.html")
         
     if False:
         print(s)
