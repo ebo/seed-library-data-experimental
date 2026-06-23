@@ -74,10 +74,10 @@ class Taxonomy:
         else:
             # Multiple map entries found.  Post error to repair mappings.
             # FIXME: convert to proper logging
-            logger.exception(f" variable '{var}' returns more than one mapping.")
-            logger.exception(f"     repair mappings file entries:")
+            logger.error(f" variable '{var}' returns more than one mapping.")
+            logger.error(f"   repair mappings file entries:")
             for d in dct:
-                logger.exception(f"    {d}")
+                logger.error(f"     {d}")
 
         return
 
@@ -118,6 +118,8 @@ class Taxonomy:
                 try:
                     dt,ds,dv = self.__decode_name__(itm)
                 except:
+                    # this is expected for "ctype" and onter simple
+                    # varlables.  You can safely ignore it.
                     continue
                 
                 if dt == t:
@@ -179,7 +181,6 @@ class Taxonomy:
     # check_required is a simple consistency check to ensure that all
     # required arguments are included.  Returns True if OK and False
     # otherwise (with simple error messages of what is missing).
-    # FIXME: need to migrate error messages into proper logging.
     def check_required(self):
         ret = True
         required = [self.__gen_name__(itm) for itm in mappings if itm["required"]=="True" and itm["class"]==self.ctype]
@@ -264,7 +265,7 @@ if __name__ == "__main__":
     s.set("auxilary_data",{"name":"test","var":"woof"})
 
     # check to make sure that all required variables are set
-    logger.info(f" check all required fields set: {s.check_required()}")
+    logger.debug(f" check all required fields set: {s.check_required()}")
 
     print("")
     print(s.MARC21())
