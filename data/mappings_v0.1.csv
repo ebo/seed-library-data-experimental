@@ -1,22 +1,31 @@
-"class","tag","subtag","var","required"
+"class","tag","subtag","var","required","recurring"
 # version information -- for future data migration
-# FIXME: define a tag for the version accession number -- used for data migration (538? 251? or other)
-"Version",251,"0","version",True
-# some of these entries are repeatable, some required, some desired.
-"Species",100,"a","sp_name",True
-"Species",100,"c","common",False
-"Species",100,"g","germination",False
-"Species",100,"j","growth_form",False
-# part/number?
-"Species",100,"q","full_name",False
-# veg class is a 
-"Species",100,"u","veg_class",False
+# FIXME: define a tag for the version accession number
+#   -- used for data migration (538? 251? or other)
+"Version",251,"0","version",True,False
 
-"Species",100,"0","urn",False
-"Species",100,"1","species_id",False
+# A species is treated as a type of corporate intitiy (110)
+# some of these entries are repeatable, some required, some desired.
+"Species",110,"a","full_name",True,False
+"Species",110,"b","common_name",False,True
+"Species",110,"g","germination",False,True
+###"Species",110,"j","growth_form",False,False
+# part/number?
+###"Species",110,"q","full_name",False,False
+# veg class is a growth form (tree shrub forb)...?
+"Species",110,"u","veg_class",False,False
+
+"Species",110,"0","species_id",False,True
+"Species",110,"2","source",False,False
+
 # define difference between link, field link and others.
-"Species",100,"6","link",False
-"Species",100,"8","field_link",False
+"Species",110,"6","link",False,False
+"Species",110,"8","field_link",False,False
+
+
+
+
+
 
 # 210: abbreviated titles.  This might work for encodings (eg. USDA:SACA13)
 
@@ -43,13 +52,6 @@
 # 545: Biographical or Historical Data: history notes?  How about enthobotony?
 
 ###############################################################################
-
-# collections levels (analogous to ????)
-"Collection",110,"a","col_name",False
-"Collection",110,"0","id",True
-# define difference between link, field link and others.
-"Collection",110,"6","link",False
-"Collection",110,"8","field_link",False
 
 # 048: has preformer <==> collector (is recurring)
 # 382: medium of performance looks  like it might work for an event
@@ -80,3 +82,5 @@
 ###############################################################################
 
 # 526: Study Program Information Note: scientific study?
+
+# 980:
