@@ -70,14 +70,14 @@ class Taxonomy:
         elif 0 == dl:
             # No name was found. skip and warn about bad name
             # FIXME: convert to proper logging
-            logger.warn(f" variable '{var}' not found.")
+            logger.warn(f"variable '{var}' not found.")
         else:
             # Multiple map entries found.  Post error to repair mappings.
             # FIXME: convert to proper logging
-            logger.error(f" variable '{var}' returns more than one mapping.")
-            logger.error(f"   repair mappings file entries:")
+            logger.error(f"variable '{var}' returns more than one mapping.")
+            logger.error(f"  repair mappings file entries:")
             for d in dct:
-                logger.error(f"     {d}")
+                logger.error(f"    {d}")
 
         return
 
@@ -112,7 +112,7 @@ class Taxonomy:
 
         # iterate through the tags and find all set
         for t in sorted(set([itm['tag'] for itm in mappings])):
-            logger.debug(f" processing field: '{t}':")
+            logger.debug(f"processing field: '{t}':")
             nsubfields = []
             for itm in list(vars(self)):
                 try:
@@ -135,42 +135,9 @@ class Taxonomy:
                 )
             )
             
-        # 4. Save the record to a binary MARC (.mrc) file
-        #with open('output_records.txt', 'w', encoding='utf-8') as file_handler:
-        if False:
-            # write out record in binary form
-            with open('output_records.txt', 'wb') as file_handler:
-                writer = MARCWriter(file_handler)
-                writer.write(record)
-                writer.close()
-                return
-        elif False:
-            # return binary string represnetation of the record
-            mstream = io.BytesIO()
-            writer = MARCWriter(mstream)
-            writer.write(record)
-        
-            marc_string = mstream.getvalue().decode('utf-8')
-            logger.debug(marc_string)
-            writer.close()
-            return marc_string
-        else:
-            # convert the record to a human readable form
-            trec = '\n'.join([str(r) for r in MARCReader(record.as_marc())])
-            return trec
-
-        # Example: Species (Author) Main Entry (100)
-        #subfields = self.getsubfields(self, tag=100
-        #record.add_field(
-        #    Field(
-        #        tag='100',
-        #        indicators=['1', ' '],
-        #        subfields=[
-        #            Subfield(code='a', value='Thomas, David,'),
-        #            Subfield(code='e', value='species.')
-        #        ]
-        #    )
-        #)
+        # convert the record to a human readable form
+        trec = '\n'.join([str(r) for r in MARCReader(record.as_marc())])
+        return trec
 
     # Auxilary data (in the firm of fields 980 and 990) are saved as a
     # JSON load converted from a python dictionary object.
@@ -189,7 +156,7 @@ class Taxonomy:
         for k in required:
             if k not in my_vars:
                 ret = False
-                logger.error(f" Required variable '{k}' not in '{self.ctype}' object")
+                logger.error(f"Required variable '{k}' not in '{self.ctype}' object")
         return ret
 
 # the Species class covers the biographic analogy of species <=> author.
@@ -220,7 +187,8 @@ if __name__ == "__main__":
                         default="./mappings_v0.1.csv",
                         help="The MARC21 mappings file (default: %(default)s)")
     parser.add_argument("-L","--logfile", type=str, required=False,
-                        default=None,
+                        #default=None,
+                        default=f"{os.path.splitext(prog)[0]}.log",
                         help="Output log filename (default: %(default)s)")
    
     parser.add_argument("-l", "--log", default='WARNING', required=False,
@@ -242,7 +210,12 @@ if __name__ == "__main__":
         file_handler.setLevel(args.log)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
-
+    logging.addLevelName(logging.DEBUG,    "DEB")
+    logging.addLevelName(logging.INFO,     "INF")
+    logging.addLevelName(logging.WARNING,  "WRN")
+    logging.addLevelName(logging.ERROR,    "ERR")
+    logging.addLevelName(logging.CRITICAL, "CRT")
+    
     # convert the CSV table into a mappings array of dictionarys.
     global mappings
     with open(args.mapfile, mode='r') as mp:
@@ -266,8 +239,14 @@ if __name__ == "__main__":
     s.set("auxilary_data",{"name":"test","var":"woof"})
 
     # check to make sure that all required variables are set
-    logger.debug(f" check all required fields set: {s.check_required()}")
+    logger.info(f"check all required fields set: {s.check_required()}")
 
-    print("")
-    print(s.MARC21())
+    # process the record and write the MARC21 record to the log file
+    # if in debug or verbose logging mode.
+    record = s.MARC21()
+    logger.info("") # add blank lines around the record
+    logger.info("record:")
+    for l in record.split('\n'):
+        logger.info(f"   {l}")
+    print(f"\n{record}")
         
