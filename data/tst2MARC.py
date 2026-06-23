@@ -6,6 +6,7 @@
 import os,sys
 import pymarc
 from datetime import datetime
+import json
 
 # uuid7 (time-ordered) unique ID's are built in as of python-3.14+
 if sys.version_info < (3, 14):
@@ -164,7 +165,12 @@ class Taxonomy:
         #    )
         #)
 
-        
+    # Auxilary data (in the firm of fields 980 and 990) are saved as a
+    # JSON load converted from a python dictionary object.
+    def gen_aux_data(self, dct):
+        data = json.dumps(dct)
+        return data
+    
     # check_required is a simple consistency check to ensure that all
     # required arguments are included.  Returns True if OK and False
     # otherwise (with simple error messages of what is missing).
@@ -225,6 +231,11 @@ if __name__ == "__main__":
         s.set("species_id","saca13")
         s.set("source","plantsdb")
         s.set("link","https://www.loc.gov/standards/sourcelist/taxonomic.html")
+        s.set("auxilary_info","This is a JSON load test.")
+        s.set("auxilary_data",{"name":"test","var":"woof"})
+
+        # check to make sure that all required variables are set
+        s.check_required()
         
     if False:
         print(s)
