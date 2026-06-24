@@ -218,8 +218,8 @@ class MARC_Record:
             fld = self.field[self.field["tagfield"]==t]
             ind1 = fld["ind1_defaultvalue"].values[0]
             ind2 = fld["ind2_defaultvalue"].values[0]
-            if ''==ind1: ind1 = ' '
-            if ''==ind2: ind2 = ' '
+            if ''==ind1: ind1 = '#'
+            if ''==ind2: ind2 = '#'
             
             logging.debug(f"  * ind1='{ind1}'  ind2='{ind2}'")
             
