@@ -113,7 +113,7 @@ class MARC_Record:
             ret = '|'.join([str(dct['tagfield'].values[0]),
                              str(dct['tagsubfield'].values[0]),
                             str(dct['varname'].values[0])])
-            logger.debug(f"gen_name = {ret}")
+            logger.debug(f"  gen_name = {ret}")
         except:
             try:
                 # for all fields
@@ -347,12 +347,12 @@ if __name__ == "__main__":
     # simple test of a species I am interested in
     s = Species(args.spffile)
     #s.spf_init()
-    s.set("full_name","Sanguinaria canadensis L.")
-    s.set("common_name","bloodroot")
+    s.set("kew.2.full_name","Sanguinaria canadensis L.")
+    s.set("kew.2.common_name","bloodroot")
     #s.set("species_id","urn:usda:saca13")
-    s.set("species_id","saca13")
-    s.set("source","plantsdb")
-    s.set("link","https://www.loc.gov/standards/sourcelist/taxonomic.html")
+    s.set("kew.2.species_id","saca13")
+    s.set("kew.2.source","plantsdb")
+    s.set("kew.2.link","https://www.loc.gov/standards/sourcelist/taxonomic.html")
     ####s.set("auxilary_info","This is a JSON load test.")
     #s.set("auxilary_data",{"name":"test","var":"woof"})
 
