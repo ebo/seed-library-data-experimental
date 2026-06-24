@@ -171,7 +171,7 @@ class MARC_Record:
         return "".join([f"{self.ctype}(",','.join([f"{k}:'{getattr(self, k)}'" for k in list(vars(self))]),")"])
 
     # MARC21 converts the variable mappings to a MARC21 record.
-    def MARC21(self):
+    def MARC21(self, def_ind=' '):
         from pymarc import Record, Field, Subfield, MARCWriter, MARCReader
         import io
         #global mappings
@@ -218,8 +218,8 @@ class MARC_Record:
             fld = self.field[self.field["tagfield"]==t]
             ind1 = fld["ind1_defaultvalue"].values[0]
             ind2 = fld["ind2_defaultvalue"].values[0]
-            if ''==ind1: ind1 = " "
-            if ''==ind2: ind2 = " "
+            if ''==ind1: ind1 = def_ind
+            if ''==ind2: ind2 = def_ind
             
             logging.debug(f"  * ind1='{ind1}'  ind2='{ind2}'")
             
@@ -277,6 +277,13 @@ class Collection (MARC_Record):
 if __name__ == "__main__":
     import argparse
 
+    def character(value):
+        """Validates that the input is a single character."""
+        if len(value) != 1:
+            raise argparse.ArgumentTypeError(f"'{value}' is not a single character")
+        return value
+
+
     prog = os.path.basename(__file__) # os.path.basename(sys.executable)
     
     parser = argparse.ArgumentParser(prog=prog, description="Convert a Species or Seed Collection to a MARC21 record (experimental testing).")
@@ -293,6 +300,10 @@ if __name__ == "__main__":
     parser.add_argument("-S","--spffile", type=str, required=False,
                         default="./seed_SPF.csv",
                         help="Output log filename (default: %(default)s)")
+
+    parser.add_argument("-U","--unused", type=character, required=False,
+                        default=" ",
+                        help="Set the unused indicator character (default: '%(default)s')")
    
     parser.add_argument("-l", "--log", default='WARNING', required=False,
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
@@ -350,7 +361,7 @@ if __name__ == "__main__":
 
     # process the record and write the MARC21 record to the log file
     # if in debug or verbose logging mode.
-    record = s.MARC21()
+    record = s.MARC21(args.unused)
     logger.info("") # add blank lines around the record
     logger.info("record:")
     for l in record.split('\n'):
